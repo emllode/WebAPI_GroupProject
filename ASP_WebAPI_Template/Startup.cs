@@ -31,11 +31,11 @@ namespace ASP_WebAPI_Template
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ASP_WebAPI_Template", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ASP_WebAPI_GroupProject", Version = "v1" });
             });
 
-            services.AddDbContext<TodoDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("TodoDbContext")));
+            services.AddDbContext<GeoDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("GeoDbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

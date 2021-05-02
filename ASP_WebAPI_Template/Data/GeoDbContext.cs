@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ASP_WebAPI_Template.Models;
 
-    public class TodoDbContext : DbContext
+    public class GeoDbContext : DbContext
     {
-        public TodoDbContext (DbContextOptions<TodoDbContext> options)
+        public GeoDbContext (DbContextOptions<GeoDbContext> options)
             : base(options)
         {
         }
 
-        public DbSet<ASP_WebAPI_Template.Models.Todo> Todo { get; set; }
+     
     }

@@ -13,15 +13,17 @@ namespace ASP_WebAPI_Template.Controllers
     [ApiController]
     public class TodoListController : ControllerBase
     {
-        private readonly TodoDbContext _context;
+        private readonly GeoDbContext _context;
 
-        public TodoListController(TodoDbContext context)
+        public TodoListController(GeoDbContext context)
         {
             _context = context;
         }
 
         // GET: api/TodoList
         [HttpGet]
+
+        /* TOG BORT TODO MODELS DÄRAV ERROR HÄR, MEN VI BEHÅLLER SÅLÄNGE FÖR EXEMPEL PÅ HUR DE KAN SE UT */
         public async Task<ActionResult<IEnumerable<Todo>>> GetTodo()
         {
             return await _context.Todo.ToListAsync();
