@@ -1,4 +1,5 @@
 ﻿using ASP_WebAPI_Template.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -44,14 +45,16 @@ namespace ASP_WebAPI_Template.Controllers
         }
 
         // ("/v1/geo-comments")
+
+        [Authorize]
         [HttpPost]
-        public async Task<ActionResult<GeoMessage>> PostGeoMessage(GeoMessage geoMessage)
+        public async Task<ActionResult<GeoMessage>> PostGeoMessage(GeoMessage GeoMessage)
         {
 
-            _context.GeoMessages.Add(geoMessage);
+            _context.GeoMessages.Add(GeoMessage);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGeoMessage", new { id = geoMessage.Id }, geoMessage);
+            return CreatedAtAction("GetGeoMessage", new { id = GeoMessage.Id }, GeoMessage);
         }
 
 
