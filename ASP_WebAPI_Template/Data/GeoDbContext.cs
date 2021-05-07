@@ -12,5 +12,7 @@ using ASP_WebAPI_Template.Models;
         {
         }
 
-     
-    }
+         public DbSet<GeoMessage> GeoMessages { get; set; }
+
+
+}

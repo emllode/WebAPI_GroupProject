@@ -11,5 +11,6 @@ namespace ASP_WebAPI_Template.Models
         public string Message { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
+        public int Id { get; set; }
     }
 }
