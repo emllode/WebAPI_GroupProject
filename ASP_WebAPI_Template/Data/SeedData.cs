@@ -14,6 +14,7 @@ namespace ASP_WebAPI_Template.Data
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
+            /* Lägga till token till varje user */
             var SeedUsers = new List<MyUser>()
             {
                 new MyUser { FirstName="Test", LastName="Test"},

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ASP_WebAPI_Template.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-    public class GeoDbContext : DbContext
-    {
+public class GeoDbContext : IdentityDbContext<MyUser>
+{
         public GeoDbContext (DbContextOptions<GeoDbContext> options)
             : base(options)
         {

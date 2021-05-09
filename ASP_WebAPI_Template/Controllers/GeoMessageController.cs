@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
+
 namespace ASP_WebAPI_Template.Controllers
 {
 
@@ -49,7 +50,7 @@ namespace ASP_WebAPI_Template.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<GeoMessage>> PostGeoMessage(GeoMessage GeoMessage)
+        public async Task<ActionResult<GeoMessage>> PostGeoMessage( GeoMessage GeoMessage)
         {
             _context.GeoMessages.Add(GeoMessage);
             await _context.SaveChangesAsync();

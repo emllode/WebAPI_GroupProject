@@ -39,6 +39,9 @@ namespace ASP_WebAPI_Template
             services.AddDbContext<GeoDbContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("dbcontext")));
 
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<GeoDbContext>();
 
         }
 
@@ -56,7 +59,8 @@ namespace ASP_WebAPI_Template
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
