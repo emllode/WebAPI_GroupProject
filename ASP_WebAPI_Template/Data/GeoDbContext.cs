@@ -15,6 +15,4 @@ using ASP_WebAPI_Template.Models;
          public DbSet<GeoMessage> GeoMessages { get; set; }
          public DbSet<MyUser> MyUsers { get; set; }
 
-
-
 }

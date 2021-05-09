@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 namespace ASP_WebAPI_Template.Controllers
 {
 
-    [Route("api/")]
+
+    [Route("api/v1/geo-comments")]
     [ApiController]
     public class GeoMessageController : Controller
     {
@@ -31,7 +32,7 @@ namespace ASP_WebAPI_Template.Controllers
 
         }
         // ("/v1/geo-comments/{id}")
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<GeoMessage>> GetGeoMessage(int id)
         {
             var geoMessage = await _context.GeoMessages.FindAsync(id);
@@ -50,18 +51,10 @@ namespace ASP_WebAPI_Template.Controllers
         [HttpPost]
         public async Task<ActionResult<GeoMessage>> PostGeoMessage(GeoMessage GeoMessage)
         {
-
             _context.GeoMessages.Add(GeoMessage);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetGeoMessage", new { id = GeoMessage.Id }, GeoMessage);
-        }
-
-
-        public IActionResult Index()
-        {
-            
-            return View();
         }
     }
 }

@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using ASP_WebAPI_Template.Models;
 
 namespace ASP_WebAPI_Template
 {
@@ -35,7 +37,9 @@ namespace ASP_WebAPI_Template
             });
 
             services.AddDbContext<GeoDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("GeoDbContext")));
+                 options.UseSqlServer(Configuration.GetConnectionString("dbcontext")));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +56,7 @@ namespace ASP_WebAPI_Template
 
             app.UseRouting();
 
+            app.UseAuthorization();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
