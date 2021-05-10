@@ -15,7 +15,7 @@ namespace ASP_WebAPI_Template.Controllers
 
     [Route("api/v1/geo-comments")]
     [ApiController]
-    public class GeoMessageController : Controller
+    public class GeoMessageController : ControllerBase
     {
         private readonly GeoDbContext _context;
 
