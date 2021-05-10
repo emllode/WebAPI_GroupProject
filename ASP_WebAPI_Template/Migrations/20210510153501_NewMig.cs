@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ASP_WebAPI_Template.Migrations
 {
-    public partial class newMig : Migration
+    public partial class NewMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

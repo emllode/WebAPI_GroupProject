@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASP_WebAPI_Template.Migrations
 {
     [DbContext(typeof(GeoDbContext))]
-    [Migration("20210509184715_newMig")]
-    partial class newMig
+    [Migration("20210510153501_NewMig")]
+    partial class NewMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
