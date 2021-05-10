@@ -15,7 +15,7 @@ namespace ASP_WebAPI_Template.Controllers
 
     [Route("api/v1/geo-comments")]
     [ApiController]
-    public class GeoMessageController : Controller
+    public class GeoMessageController : ControllerBase
     {
         private readonly GeoDbContext _context;
 
@@ -50,6 +50,7 @@ namespace ASP_WebAPI_Template.Controllers
 
         [Authorize]
         [HttpPost]
+        [Consumes("application/json", new string[] { "application/xml" })]
         public async Task<ActionResult<GeoMessage>> PostGeoMessage( GeoMessage GeoMessage)
         {
             _context.GeoMessages.Add(GeoMessage);

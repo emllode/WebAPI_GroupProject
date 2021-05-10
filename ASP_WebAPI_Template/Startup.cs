@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ASP_WebAPI_Template.Models;
+using Microsoft.AspNetCore.Authentication;
 
 namespace ASP_WebAPI_Template
 {
@@ -29,8 +30,7 @@ namespace ASP_WebAPI_Template
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
+            services.AddControllers().AddXmlSerializerFormatters();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ASP_WebAPI_GroupProject", Version = "v1" });
@@ -42,6 +42,9 @@ namespace ASP_WebAPI_Template
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<GeoDbContext>();
+
+            services.AddAuthentication("MyAuthScheme")
+                .AddScheme<AuthenticationSchemeOptions, Data.MyAuthenticationHandler>("MyAuthScheme", null);
 
         }
 
