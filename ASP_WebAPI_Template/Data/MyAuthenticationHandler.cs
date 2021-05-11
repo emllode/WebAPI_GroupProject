@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
@@ -27,10 +28,11 @@ namespace ASP_WebAPI_Template.Data
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            string Name = Request.Query["Username"];
-            string Password = Request.Query["Password"];
-
-            MyUser User = _context.MyUsers.Where(u => u.FirstName == Name && u.LastName == Password).FirstOrDefault();
+            string Auth = Request.Headers["Authorization"].ToString().Remove(0,6);
+            var encoding = Encoding.GetEncoding("iso-8859-1");
+            Auth = encoding.GetString(Convert.FromBase64String(Auth));
+            var UserAndPas = Auth.Split(":", StringSplitOptions.None);
+            MyUser User = _context.MyUsers.Where(u => u.FirstName == UserAndPas[0] && u.LastName == UserAndPas[1]).FirstOrDefault();
 
             if (User == null) return AuthenticateResult.Fail("Invalid user");
 
