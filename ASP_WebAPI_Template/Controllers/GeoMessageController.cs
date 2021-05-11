@@ -27,14 +27,21 @@ namespace ASP_WebAPI_Template.Controllers
 
         [HttpGet]
         /* Ska retunera de messages som finns när sidan laddas */
-        public async Task<ActionResult<IEnumerable<GeoMessage>>> GetMessages()
+        public async Task<ActionResult<IEnumerable<GeoMessageDto>>> GetMessages()
         {
-            return await _context.GeoMessages.ToListAsync();
+            return await _context.GeoMessages.Select(g =>
+            new GeoMessageDto
+            {
+                Message = g.Message,
+                Longitude = g.Longitude,
+                Latitude = g.Latitude
+            }
+            ).ToListAsync();
 
         }
         // ("/v1/geo-comments/{id}")
         [HttpGet("{id}")]
-        public async Task<ActionResult<GeoMessage>> GetGeoMessage(int id)
+        public async Task<ActionResult<GeoMessageDto>> GetGeoMessage(int id)
         {
             var geoMessage = await _context.GeoMessages.Where(g => g.Id == id).Select(g =>
             new GeoMessageDto
