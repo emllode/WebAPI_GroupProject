@@ -36,7 +36,14 @@ namespace ASP_WebAPI_Template.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GeoMessage>> GetGeoMessage(int id)
         {
-            var geoMessage = await _context.GeoMessages.FindAsync(id);
+            var geoMessage = await _context.GeoMessages.Where(g => g.Id == id).Select(g =>
+            new GeoMessageDto
+            {
+                Message = g.Message,
+                Longitude = g.Longitude,
+                Latitude = g.Latitude
+            }
+            ).FirstOrDefaultAsync();
 
             if (geoMessage == null)
             {

@@ -28,7 +28,9 @@ namespace ASP_WebAPI_Template.Data
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            string Auth = Request.Headers["Authorization"].ToString().Remove(0,6);
+            string Auth = Request.Headers["Authorization"];
+            if (Auth == null || !Auth.StartsWith("Basic")) return AuthenticateResult.Fail("No Authorization Header");
+            Auth = Auth.Remove(0, 6);
             var encoding = Encoding.GetEncoding("iso-8859-1");
             Auth = encoding.GetString(Convert.FromBase64String(Auth));
             var UserAndPas = Auth.Split(":", StringSplitOptions.None);
