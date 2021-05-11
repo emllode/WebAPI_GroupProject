@@ -31,6 +31,18 @@ namespace ASP_WebAPI_Template
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddXmlSerializerFormatters();
+            services.AddApiVersioning(o =>
+            {
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.ReportApiVersions = true;
+            });
+            services.AddVersionedApiExplorer(o =>
+            {
+                o.GroupNameFormat = "'v'VVV";
+                o.SubstituteApiVersionInUrl = true;
+            });
+
             services.AddSwaggerGen(c =>
             {
 

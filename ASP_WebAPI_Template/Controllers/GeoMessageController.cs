@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace ASP_WebAPI_Template.Controllers
 {
-
-
-    [Route("api/v1/geo-comments")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[Controller]")]
+   
     public class GeoMessageController : ControllerBase
     {
         private readonly GeoDbContext _context;
