@@ -51,12 +51,18 @@ namespace ASP_WebAPI_Template.Controllers
         [Authorize]
         [HttpPost]
         [Consumes("application/json", new string[] { "application/xml" })]
-        public async Task<ActionResult<GeoMessage>> PostGeoMessage( GeoMessage GeoMessage)
+        public async Task<ActionResult<GeoMessage>> PostGeoMessage( GeoMessageDto GeoMessage)
         {
-            _context.GeoMessages.Add(GeoMessage);
+            GeoMessage geomessage = new GeoMessage()
+            {
+                Latitude = GeoMessage.Latitude,
+                Longitude = GeoMessage.Longitude,
+                Message = GeoMessage.Message
+            };
+            _context.GeoMessages.Add(geomessage);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGeoMessage", new { id = GeoMessage.Id }, GeoMessage);
+            return CreatedAtAction("GetGeoMessage", new {Id = geomessage.Id }, GeoMessage);
         }
     }
 }
