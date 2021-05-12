@@ -6,9 +6,9 @@
     <members>
         <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageController.GetMessages">
             <summary>
-            Ger alla GeoMessages som användare har lagt in.
+            Funkar det?.
             </summary>
-            <returns> Returnerar alla GeoMessages </returns>
+            <returns> return ?? </returns>
         </member>
     </members>
 </doc>
