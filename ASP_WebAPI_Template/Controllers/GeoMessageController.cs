@@ -6,8 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-
+using static ASP_WebAPI_Template.Models.GeoMessageTwo;
 
 namespace ASP_WebAPI_Template.Controllers
 {
@@ -35,7 +34,7 @@ namespace ASP_WebAPI_Template.Controllers
             return await _context.GeoMessages.Select(g =>
             new GeoMessageDto
             {
-                Message = g.Message,
+                Message = g.Body,
                 Longitude = g.Longitude,
                 Latitude = g.Latitude
             }
@@ -54,7 +53,7 @@ namespace ASP_WebAPI_Template.Controllers
             var geoMessage = await _context.GeoMessages.Where(g => g.Id == id).Select(g =>
             new GeoMessageDto
             {
-                Message = g.Message,
+                Message = g.Body,
                 Longitude = g.Longitude,
                 Latitude = g.Latitude
             }
@@ -80,11 +79,11 @@ namespace ASP_WebAPI_Template.Controllers
         [Consumes("application/json", new string[] { "application/xml" })]
         public async Task<ActionResult<GeoMessage>> PostGeoMessage( GeoMessageDto GeoMessage)
         {
-            GeoMessage geomessage = new GeoMessage()
+            SecondaryGeoMessage geomessage = new SecondaryGeoMessage()
             {
                 Latitude = GeoMessage.Latitude,
                 Longitude = GeoMessage.Longitude,
-                Message = GeoMessage.Message
+                Body = GeoMessage.Message
             };
             _context.GeoMessages.Add(geomessage);
             await _context.SaveChangesAsync();

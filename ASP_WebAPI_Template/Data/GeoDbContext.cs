@@ -13,7 +13,7 @@ public class GeoDbContext : IdentityDbContext<MyUser>
         {
         }
 
-         public DbSet<GeoMessage> GeoMessages { get; set; }
+         public DbSet<GeoMessageTwo.SecondaryGeoMessage> GeoMessages { get; set; }
          public DbSet<MyUser> MyUsers { get; set; }
 
 }

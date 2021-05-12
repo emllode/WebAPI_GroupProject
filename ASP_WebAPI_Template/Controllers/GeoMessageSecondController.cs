@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static ASP_WebAPI_Template.Models.GeoMessageTwo;
 
 namespace ASP_WebAPI_Template.Controllers
 {
@@ -25,12 +26,12 @@ namespace ASP_WebAPI_Template.Controllers
 
         [HttpGet]
         /* Ska retunera de messages som finns när sidan laddas */
-        public async Task<ActionResult<IEnumerable<GeoMessageDto>>> GetMessages()
+        public async Task<ActionResult<IEnumerable<SecondaryGeoMessageDto>>> GetMessages()
         {
             return await _context.GeoMessages.Select(g =>
-            new GeoMessageDto
+            new SecondaryGeoMessageDto
             {
-                Message = g.Message,
+                Message = new Message { Title = g.Title, Author = g.Author, Body = g.Body },
                 Longitude = g.Longitude,
                 Latitude = g.Latitude
             }
@@ -39,12 +40,12 @@ namespace ASP_WebAPI_Template.Controllers
         }
         // ("/v1/geo-comments/{id}")
         [HttpGet("{id}")]
-        public async Task<ActionResult<GeoMessageDto>> GetGeoMessage(int id)
+        public async Task<ActionResult<SecondaryGeoMessageDto>> GetGeoMessage(int id)
         {
             var geoMessage = await _context.GeoMessages.Where(g => g.Id == id).Select(g =>
-            new GeoMessageDto
+            new SecondaryGeoMessageDto
             {
-                Message = g.Message,
+                Message = new Message { Title = g.Title, Author = g.Author, Body = g.Body },
                 Longitude = g.Longitude,
                 Latitude = g.Latitude
             }
@@ -63,13 +64,15 @@ namespace ASP_WebAPI_Template.Controllers
         [Authorize]
         [HttpPost]
         [Consumes("application/json", new string[] { "application/xml" })]
-        public async Task<ActionResult<GeoMessage>> PostGeoMessage(GeoMessageDto GeoMessage)
+        public async Task<ActionResult<GeoMessage>> PostGeoMessage(SecondaryGeoMessageDto GeoMessage)
         {
-            GeoMessage geomessage = new GeoMessage()
+            SecondaryGeoMessage geomessage = new SecondaryGeoMessage()
             {
                 Latitude = GeoMessage.Latitude,
                 Longitude = GeoMessage.Longitude,
-                Message = GeoMessage.Message
+                Title = GeoMessage.Message.Title,
+                Author = GeoMessage.Message.Author,
+                Body = GeoMessage.Message.Body
             };
             _context.GeoMessages.Add(geomessage);
             await _context.SaveChangesAsync();
