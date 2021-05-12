@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ASP_WebAPI_Template.Models;
 using Microsoft.AspNetCore.Authentication;
+using System.IO;
 
 namespace ASP_WebAPI_Template
 {
@@ -48,6 +49,9 @@ namespace ASP_WebAPI_Template
 
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ASP_WebAPI_GroupProject", Version = "v1" });
                 c.SwaggerDoc("v2", new OpenApiInfo { Title = "ASP_WebAPI_GroupProject", Version = "v2" });
+                var path = Path.Combine(AppContext.BaseDirectory, "Documentation.xml");
+                c.IncludeXmlComments(path);
+
                 c.AddSecurityDefinition("basic", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",

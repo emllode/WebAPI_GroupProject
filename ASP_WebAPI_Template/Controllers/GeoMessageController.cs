@@ -24,6 +24,10 @@ namespace ASP_WebAPI_Template.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Funkar det?.
+        /// </summary>
+        /// <returns> return ?? </returns>
 
         [HttpGet]
         /* Ska retunera de messages som finns när sidan laddas */

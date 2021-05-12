@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ASP_WebAPI_Template</name>
+    </assembly>
+    <members>
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageController.GetMessages">
+            <summary>
+            Ger alla GeoMessages som användare har lagt in.
+            </summary>
+            <returns> Returnerar alla GeoMessages </returns>
+        </member>
+    </members>
+</doc>

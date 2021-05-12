@@ -13,6 +13,7 @@ namespace ASP_WebAPI_Template
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -35,4 +36,5 @@ namespace ASP_WebAPI_Template
                     webBuilder.UseStartup<Startup>();
                 });
     }
+
 }
