@@ -29,7 +29,7 @@ namespace ASP_WebAPI_Template.Controllers
      /// </summary>
      /// <returns>Retunerar samtliga messages</returns>
         [HttpGet]
-        /* Ska retunera de messages som finns när sidan laddas */
+
         public async Task<ActionResult<IEnumerable<GeoMessageDto>>> GetMessages()
         {
             return await _context.GeoMessages.Select(g =>
@@ -46,11 +46,8 @@ namespace ASP_WebAPI_Template.Controllers
         /// <summary>
         ///  Ger en message utifrån ID som anges.
         /// </summary>
-        /// <param name="id">
-        /// <para>Ange ID på message</para>
-        /// </param>
+        /// <param name="id"> </param>
         /// <returns>retunerar message från ID</returns>
-        // ("/v1/geo-comments/{id}")
         [HttpGet("{id}")]
         public async Task<ActionResult<GeoMessageDto>> GetGeoMessage(int id)
         {
@@ -75,10 +72,9 @@ namespace ASP_WebAPI_Template.Controllers
         /// Här postar man ett message till db
         /// </summary>
         /// <param name="GeoMessage">
-        /// <para>Ett message för version ett</para>
+        /// <para>Här kan du skriva ett message som vi sparar till vår databas</para>
         /// </param>
         /// <returns>Message har blivit postat till db</returns>
-        // ("/v1/geo-comments")
         [Authorize]
         [HttpPost]
         [Consumes("application/json", new string[] { "application/xml" })]

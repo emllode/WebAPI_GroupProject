@@ -6,9 +6,25 @@
     <members>
         <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageController.GetMessages">
             <summary>
-            Funkar det?.
+            Här får ni alla messages
             </summary>
-            <returns> return ?? </returns>
+            <returns>Retunerar samtliga messages</returns>
+        </member>
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageController.GetGeoMessage(System.Int32)">
+            <summary>
+             Ger en message utifrån ID som anges.
+            </summary>
+            <param name="id"> </param>
+            <returns>retunerar message från ID</returns>
+        </member>
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageController.PostGeoMessage(ASP_WebAPI_Template.Models.GeoMessageDto)">
+            <summary>
+            Här postar man ett message till db
+            </summary>
+            <param name="GeoMessage">
+            <para>Här kan du skriva ett message som vi sparar till vår databas</para>
+            </param>
+            <returns>Message har blivit postat till db</returns>
         </member>
     </members>
 </doc>
