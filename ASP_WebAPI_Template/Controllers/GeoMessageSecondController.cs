@@ -40,26 +40,17 @@ namespace ASP_WebAPI_Template.Controllers
 
             if (minLon == 0 && maxLon == 0 && minLat == 0 && maxLat == 0)
             {
-                 var messagesv2 = await _context.GeoMessagesTwo.Select(g =>
-                 new GeoMessageTwo.SecondaryGeoMessageDto
-                 {
-                     Message = new GeoMessageTwo.Message()
-                     {
-                         Title = g.Title,
-                         Body = g.Body,
-                         Author = g.Author,
-                     },
-                     Longitude = g.Longitude,
-                     Latitude = g.Latitude
-                 }
-                  ).ToListAsync();
+                var msgv1 = await _context.GeoMessages.ToListAsync();
+                var msgv2 = await _context.GeoMessagesTwo.ToListAsync();
 
-                        return messagesv2;
+                var v1AndV2 = Messagesv1(msgv1).Concat(Messagesv2(msgv2));
+                return Ok(v1AndV2);
             }
 
             else
             {
-               // Här måste jag ta mina Messagev1 samt Messagev2 listor och publicera med query av kordinater.
+                return Ok();
+
             }
 
 
@@ -128,7 +119,9 @@ namespace ASP_WebAPI_Template.Controllers
             return CreatedAtAction("GetGeoMessage", new { Id = geomess.Id }, GeoMessageTwo);
         }
 
-        private IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto> Messagesv1(IEnumerable<GeoMessageDto> messagesv1)
+
+        /*  Tänker att vi använder dessa för kunna använda bägge versions  */
+        private  IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto> Messagesv1(IEnumerable<GeoMessage> messagesv1)
         {
             foreach (var message in messagesv1)
             {
@@ -141,13 +134,13 @@ namespace ASP_WebAPI_Template.Controllers
                 yield return messageDtov1;
             }
         }
-        private IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto> Messagesv2(IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto> messagesv2)
+        private  IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto> Messagesv2(IEnumerable<GeoMessageTwo.SecondaryGeoMessage> messagesv2)
         {
             foreach (var message in messagesv2)
             {
                 var messageDtov2 = new GeoMessageTwo.SecondaryGeoMessageDto
                 {
-                    Message = new GeoMessageTwo.Message { Title = message.Message.Title, Body = message.Message.Body, Author = message.Message.Author },
+                    Message = new GeoMessageTwo.Message { Title = message.Title, Body = message.Body, Author = message.Author },
                     Longitude = message.Longitude,
                     Latitude = message.Latitude
                 };
