@@ -29,10 +29,10 @@ namespace ASP_WebAPI_Template.Controllers
         /// <summary>
         /// Retunerar v1 + v2 meddelanden.
         /// </summary>
-        /// <param name="minLon"><para>Minsta värdet för longitud, Decimaltal</para></param>
-        /// <param name="minLat"><para>Minsta värdet för latitud, Decimaltal</para></param>
-        /// <param name="maxLon"><para>Högsta värdet för longitud, Decimaltal</para></param>
-        /// <param name="maxLat"><para>Högsta värdet för latitud, Decimaltal</para></param>
+        /// <param name="minLon"><para>Minium värde för longitude</para></param>
+        /// <param name="minLat"><para>Minium värde för latitude</para></param>
+        /// <param name="maxLon"><para>Maximum värdet för longitud</para></param>
+        /// <param name="maxLat"><para>Maximum värdet för latitud</para></param>
         /// <returns>Retunerar samtliga messages</returns>
 
         [HttpGet]
@@ -66,20 +66,11 @@ namespace ASP_WebAPI_Template.Controllers
 
             }
 
-            var geomessages = await _context.GeoMessages.Select(g =>
-                new SecondaryGeoMessageDto
-                {
-                    Message = new Message
-                    {
-                        Author = g.Author,
-                        Body = g.Body,
-                        Title = g.Title
-                    },
-                    Latitude = g.Latitude,
-                    Longitude = g.Longitude
-                }).ToListAsync();
-                return Ok(geomessages);
-
+            else
+            {
+                var messageWithCords = await _context.GeoMessages.Where(e => e.Longitude >= minLon && e.Longitude <= maxLon && e.Latitude >= minLat && e.Latitude <= maxLat).ToListAsync();
+                return Ok(messageWithCords);
+            }
 
 
         }
