@@ -36,7 +36,7 @@ namespace ASP_WebAPI_Template.Controllers
         /// <returns>Retunerar samtliga messages</returns>
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto>>> GetMessagesTwo([FromQuery] double ?minLon, double ?maxLon, double ?minLat, double ?maxLat)
+        public async Task<ActionResult<IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto>>> GetMessagesTwo([FromQuery] double minLon, double maxLon, double minLat, double maxLat)
         {
 
             if (minLon != 0 && maxLon != 0 && minLat != 0 && maxLat != 0)
@@ -61,16 +61,9 @@ namespace ASP_WebAPI_Template.Controllers
                 if (geomessagesWithLatAndLon == null) return NotFound();
                 return Ok(geomessagesWithLatAndLon);
             }
-            else if(minLat != 0 || minLon != 0 && maxLat == 0 && maxLon == 0)
-            {
 
-            }
-
-            else
-            {
-                var messageWithCords = await _context.GeoMessages.Where(e => e.Longitude >= minLon && e.Longitude <= maxLon && e.Latitude >= minLat && e.Latitude <= maxLat).ToListAsync();
+                var messageWithCords = await _context.GeoMessages.ToListAsync();
                 return Ok(messageWithCords);
-            }
 
 
         }

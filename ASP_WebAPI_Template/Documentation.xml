@@ -26,14 +26,14 @@
             </param>
             <returns>Message har blivit postat till db</returns>
         </member>
-        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetMessagesTwo(System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})">
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetMessagesTwo(System.Double,System.Double,System.Double,System.Double)">
             <summary>
             Retunerar v1 + v2 meddelanden.
             </summary>
-            <param name="minLon"><para>Minsta värdet för longitud, Decimaltal</para></param>
-            <param name="minLat"><para>Minsta värdet för latitud, Decimaltal</para></param>
-            <param name="maxLon"><para>Högsta värdet för longitud, Decimaltal</para></param>
-            <param name="maxLat"><para>Högsta värdet för latitud, Decimaltal</para></param>
+            <param name="minLon"><para>Minium värde för longitude</para></param>
+            <param name="minLat"><para>Minium värde för latitude</para></param>
+            <param name="maxLon"><para>Maximum värdet för longitud</para></param>
+            <param name="maxLat"><para>Maximum värdet för latitud</para></param>
             <returns>Retunerar samtliga messages</returns>
         </member>
         <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetGeoMessage(System.Int32)">
