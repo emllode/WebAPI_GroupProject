@@ -26,7 +26,7 @@
             </param>
             <returns>Message har blivit postat till db</returns>
         </member>
-        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetMessagesTwo(System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetMessagesTwo(System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})">
             <summary>
             Retunerar v1 + v2 meddelanden.
             </summary>

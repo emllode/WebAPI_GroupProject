@@ -36,13 +36,17 @@ namespace ASP_WebAPI_Template.Controllers
         /// <returns>Retunerar samtliga messages</returns>
 
         [HttpGet]
-        /* Vi behöver lösa så v1 även syns här, Går det att tillkalla v1 databasen i Get? */
-        public async Task<ActionResult<IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto>>> GetMessagesTwo([FromQuery] double minLon, double maxLon, double minLat, double maxLat)
+        public async Task<ActionResult<IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto>>> GetMessagesTwo([FromQuery] double ?minLon, double ?maxLon, double ?minLat, double ?maxLat)
         {
 
-            if (minLon == 0 && maxLon == 0 && minLat == 0 && maxLat == 0)
+            if (minLon != 0 && maxLon != 0 && minLat != 0 && maxLat != 0)
             {
-                var geomessage = await _context.GeoMessages.Select(g =>
+                var geomessagesWithLatAndLon = await _context.GeoMessages.Where(g => 
+                g.Longitude <= maxLon && 
+                g.Longitude >= minLon && 
+                g.Latitude <= maxLat && 
+                g.Latitude >= minLat)
+                    .Select(g =>
                 new SecondaryGeoMessageDto
                 {
                     Message = new Message
@@ -54,14 +58,28 @@ namespace ASP_WebAPI_Template.Controllers
                     Latitude = g.Latitude,
                     Longitude = g.Longitude
                 }).ToListAsync();
-                return Ok(geomessage);
+                if (geomessagesWithLatAndLon == null) return NotFound();
+                return Ok(geomessagesWithLatAndLon);
             }
-
-            else
+            else if(minLat != 0 || minLon != 0 && maxLat == 0 && maxLon == 0)
             {
-                return Ok();
 
             }
+
+            var geomessages = await _context.GeoMessages.Select(g =>
+                new SecondaryGeoMessageDto
+                {
+                    Message = new Message
+                    {
+                        Author = g.Author,
+                        Body = g.Body,
+                        Title = g.Title
+                    },
+                    Latitude = g.Latitude,
+                    Longitude = g.Longitude
+                }).ToListAsync();
+                return Ok(geomessages);
+
 
 
         }
