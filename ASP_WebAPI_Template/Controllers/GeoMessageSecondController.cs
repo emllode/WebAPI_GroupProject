@@ -27,27 +27,40 @@ namespace ASP_WebAPI_Template.Controllers
         /// <summary>
         /// Retunerar v1 + v2 meddelanden.
         /// </summary>
+        /// <param name="minLon"><para>Minsta värdet för longitud, Decimaltal</para></param>
+        /// <param name="minLat"><para>Minsta värdet för latitud, Decimaltal</para></param>
+        /// <param name="maxLon"><para>Högsta värdet för longitud, Decimaltal</para></param>
+        /// <param name="maxLat"><para>Högsta värdet för latitud, Decimaltal</para></param>
         /// <returns>Retunerar samtliga messages</returns>
+
         [HttpGet]
         /* Vi behöver lösa så v1 även syns här, Går det att tillkalla v1 databasen i Get? */
-        public async Task<ActionResult<IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto>>> GetMessagesTwo()
+        public async Task<ActionResult<IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto>>> GetMessagesTwo([FromQuery] double minLon, double maxLon, double minLat, double maxLat)
         {
 
-            var messagesv2 = await _context.GeoMessagesTwo.Select(g =>
-            new GeoMessageTwo.SecondaryGeoMessageDto
+            if (minLon == 0 && maxLon == 0 && minLat == 0 && maxLat == 0)
             {
-                Message = new GeoMessageTwo.Message()
-                {
-                    Title = g.Title,
-                    Body = g.Body,
-                    Author = g.Author,
-                },
-                Longitude = g.Longitude,
-                Latitude = g.Latitude
-            }
-             ).ToListAsync();
+                 var messagesv2 = await _context.GeoMessagesTwo.Select(g =>
+                 new GeoMessageTwo.SecondaryGeoMessageDto
+                 {
+                     Message = new GeoMessageTwo.Message()
+                     {
+                         Title = g.Title,
+                         Body = g.Body,
+                         Author = g.Author,
+                     },
+                     Longitude = g.Longitude,
+                     Latitude = g.Latitude
+                 }
+                  ).ToListAsync();
 
-            return messagesv2;
+                        return messagesv2;
+            }
+
+            else
+            {
+               // Här måste jag ta mina Messagev1 samt Messagev2 listor och publicera med query av kordinater.
+            }
 
 
         }
@@ -115,6 +128,32 @@ namespace ASP_WebAPI_Template.Controllers
             return CreatedAtAction("GetGeoMessage", new { Id = geomess.Id }, GeoMessageTwo);
         }
 
+        private IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto> Messagesv1(IEnumerable<GeoMessageDto> messagesv1)
+        {
+            foreach (var message in messagesv1)
+            {
+                var messageDtov1 = new GeoMessageTwo.SecondaryGeoMessageDto
+                {
+                    Message = new GeoMessageTwo.Message { Title = "Existerar endast i v2 och uppåt", Body = "Existerar endast i v2 och uppåt", Author = "Existerar endast i v2 och uppåt" },
+                    Longitude = message.Longitude,
+                    Latitude = message.Latitude
+                };
+                yield return messageDtov1;
+            }
+        }
+        private IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto> Messagesv2(IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto> messagesv2)
+        {
+            foreach (var message in messagesv2)
+            {
+                var messageDtov2 = new GeoMessageTwo.SecondaryGeoMessageDto
+                {
+                    Message = new GeoMessageTwo.Message { Title = message.Message.Title, Body = message.Message.Body, Author = message.Message.Author },
+                    Longitude = message.Longitude,
+                    Latitude = message.Latitude
+                };
+                yield return messageDtov2;
+            }
+        }
 
     }
 }
