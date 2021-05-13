@@ -26,5 +26,16 @@
             </param>
             <returns>Message har blivit postat till db</returns>
         </member>
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.PostGeoMessagev2(ASP_WebAPI_Template.Models.GeoMessageTwo.SecondaryGeoMessage)">
+            <summary>
+            Postar message till v2 db
+            </summary>
+            <param name="GeoMessageTwo">
+            <para>Här kan du skriva ett message som vi sparar till vår v2 databas</para>
+            </param>
+            <returns>
+            Message har blivit postat till v2 db
+            </returns>
+        </member>
     </members>
 </doc>

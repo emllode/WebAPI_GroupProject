@@ -8,12 +8,13 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 public class GeoDbContext : IdentityDbContext<MyUser>
 {
-        public GeoDbContext (DbContextOptions<GeoDbContext> options)
-            : base(options)
-        {
-        }
+    public GeoDbContext(DbContextOptions<GeoDbContext> options)
+        : base(options)
+    {
+    }
 
-         public DbSet<GeoMessage> GeoMessages { get; set; }
-         public DbSet<MyUser> MyUsers { get; set; }
+            public DbSet<GeoMessage> GeoMessages { get; set; }
+            public DbSet<GeoMessageTwo.SecondaryGeoMessage> GeoMessagesTwo { get; set; }
+            public DbSet<MyUser> MyUsers { get; set; }
 
 }
