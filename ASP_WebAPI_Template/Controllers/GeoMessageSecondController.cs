@@ -27,10 +27,10 @@ namespace ASP_WebAPI_Template.Controllers
         }
 
         /// <summary>
-        /// Retunerar v1 + v2 meddelanden.
+        /// Returnerar alla meddelanden inom ett område.
         /// </summary>
-        /// <param name="minLon"><para>Minium värde för longitude</para></param>
-        /// <param name="minLat"><para>Minium värde för latitude</para></param>
+        /// <param name="minLon"><para>Minimum värde för longitude</para></param>
+        /// <param name="minLat"><para>Minimum värde för latitude</para></param>
         /// <param name="maxLon"><para>Maximum värdet för longitud</para></param>
         /// <param name="maxLat"><para>Maximum värdet för latitud</para></param>
         /// <returns>Retunerar samtliga messages</returns>
@@ -69,7 +69,7 @@ namespace ASP_WebAPI_Template.Controllers
         }
 
         /// <summary>
-        ///  Ger ett message utifrån ID som anges.
+        ///  Returnerar ett meddelande utifrån ID som anges.
         /// </summary>
         /// <param name="id"> </param>
         /// <returns>retunerar message från ID</returns>
@@ -97,13 +97,13 @@ namespace ASP_WebAPI_Template.Controllers
         // ("/v1/geo-comments")
 
         /// <summary>
-        /// Postar message till v2 db
+        /// Postar ett meddelande
         /// </summary>
         /// <param name="GeoMessageTwo">
-        /// <para>Här kan du skriva ett message som vi sparar till vår v2 databas</para>
+        /// <para>Här kan du skriva ett meddelande som vi sparar till vår databas</para>
         /// </param>
         /// <returns>
-        /// Message har blivit postat till v2 db
+        /// Meddelandet har skapats
         /// </returns>
         [Authorize]
         [HttpPost]
@@ -123,35 +123,6 @@ namespace ASP_WebAPI_Template.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetGeoMessage", new { Id = geomessage.Id }, geomessage);
-        }
-
-
-        /*  Tänker att vi använder dessa för kunna använda bägge versions  */
-        private  IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto> Messagesv1(IEnumerable<GeoMessage> messagesv1)
-        {
-            foreach (var message in messagesv1)
-            {
-                var messageDtov1 = new GeoMessageTwo.SecondaryGeoMessageDto
-                {
-                    Message = new GeoMessageTwo.Message { Title = "Existerar endast i v2 och uppåt", Body = "Existerar endast i v2 och uppåt", Author = "Existerar endast i v2 och uppåt" },
-                    Longitude = message.Longitude,
-                    Latitude = message.Latitude
-                };
-                yield return messageDtov1;
-            }
-        }
-        private  IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto> Messagesv2(IEnumerable<GeoMessageTwo.SecondaryGeoMessage> messagesv2)
-        {
-            foreach (var message in messagesv2)
-            {
-                var messageDtov2 = new GeoMessageTwo.SecondaryGeoMessageDto
-                {
-                    Message = new GeoMessageTwo.Message { Title = message.Title, Body = message.Body, Author = message.Author },
-                    Longitude = message.Longitude,
-                    Latitude = message.Latitude
-                };
-                yield return messageDtov2;
-            }
         }
 
     }
