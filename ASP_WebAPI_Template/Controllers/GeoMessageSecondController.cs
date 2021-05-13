@@ -24,39 +24,33 @@ namespace ASP_WebAPI_Template.Controllers
 
         }
 
-
+        /// <summary>
+        /// Retunerar v1 + v2 meddelanden.
+        /// </summary>
+        /// <returns>Retunerar samtliga messages</returns>
         [HttpGet]
-        /* Ska retunera de messages som finns när sidan laddas */
-        //public async Task<ActionResult<IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto>>> GetMessages()
-        //{
+        /* Vi behöver lösa så v1 även syns här, Går det att tillkalla v1 databasen i Get? */
+        public async Task<ActionResult<IEnumerable<GeoMessageTwo.SecondaryGeoMessageDto>>> GetMessagesTwo()
+        {
 
-        //  //  var messagesv1 =  await _context.GeoMessages.Select(g =>
-        //  //  new GeoMessageDto
-        //  //  {
-        //  //      Message = g.Message,
-        //  //      Longitude = g.Longitude,
-        //  //      Latitude = g.Latitude
-        //  //  }
-        //  //  ).ToListAsync();
+            var messagesv2 = await _context.GeoMessagesTwo.Select(g =>
+            new GeoMessageTwo.SecondaryGeoMessageDto
+            {
+                Message = new GeoMessageTwo.Message()
+                {
+                    Title = g.Title,
+                    Body = g.Body,
+                    Author = g.Author,
+                },
+                Longitude = g.Longitude,
+                Latitude = g.Latitude
+            }
+             ).ToListAsync();
 
-        //  //var messagesv2 = await _context.GeoMessagesTwo.Select(g =>
-        //  //new GeoMessageDto
-        //  //{
-        //  //    Message = new GeoMessageTwo.Message()
-        //  //    {
-        //  //        Title = g.Title,
-        //  //        Body = g.Body,
-        //  //        Author = g.Author,
-        //  //    },
-        //  //    Longitude = g.Longitude,
-        //  //    Latitude = g.Latitude
-        //  //}
-        //  // ).ToListAsync();
+            return messagesv2;
 
-        //  //  return 0;
-   
 
-        //}
+        }
         // ("/v1/geo-comments/{id}")
         [HttpGet("{id}")]
         public async Task<ActionResult<GeoMessageDto>> GetGeoMessage(int id)
