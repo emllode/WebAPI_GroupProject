@@ -26,5 +26,33 @@
             </param>
             <returns>Message har blivit postat till db</returns>
         </member>
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetMessagesTwo(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Retunerar v1 + v2 meddelanden.
+            </summary>
+            <param name="minLon"><para>Minsta värdet för longitud, Decimaltal</para></param>
+            <param name="minLat"><para>Minsta värdet för latitud, Decimaltal</para></param>
+            <param name="maxLon"><para>Högsta värdet för longitud, Decimaltal</para></param>
+            <param name="maxLat"><para>Högsta värdet för latitud, Decimaltal</para></param>
+            <returns>Retunerar samtliga messages</returns>
+        </member>
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetGeoMessageTwo(System.Int32)">
+            <summary>
+             Ger ett message utifrån ID som anges.
+            </summary>
+            <param name="id"> </param>
+            <returns>retunerar message från ID</returns>
+        </member>
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.PostGeoMessagev2(ASP_WebAPI_Template.Models.GeoMessageTwo.SecondaryGeoMessageDto)">
+            <summary>
+            Postar message till v2 db
+            </summary>
+            <param name="GeoMessageTwo">
+            <para>Här kan du skriva ett message som vi sparar till vår v2 databas</para>
+            </param>
+            <returns>
+            Message har blivit postat till v2 db
+            </returns>
+        </member>
     </members>
 </doc>
