@@ -1,5 +1,6 @@
 ﻿using ASP_WebAPI_Template.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -28,12 +29,8 @@ namespace ASP_WebAPI_Template.Data
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            string Auth = Request.Headers["Authorization"];
-            if (Auth == null || !Auth.StartsWith("Basic")) return AuthenticateResult.Fail("No Authorization Header");
-            Auth = Auth.Remove(0, 6);
-            var encoding = Encoding.GetEncoding("iso-8859-1");
-            Auth = encoding.GetString(Convert.FromBase64String(Auth));
-            var UserAndPas = Auth.Split(":", StringSplitOptions.None);
+            string[] UserAndPas = ValidateUser(Request);
+            if (UserAndPas == null) return AuthenticateResult.Fail("No authentication");
             MyUser User = _context.MyUsers.Where(u => u.FirstName == UserAndPas[0] && u.LastName == UserAndPas[1]).FirstOrDefault();
 
             if (User == null) return AuthenticateResult.Fail("Invalid user");
@@ -42,8 +39,16 @@ namespace ASP_WebAPI_Template.Data
             var Principal = new ClaimsPrincipal(Identity);
             var Ticket = new AuthenticationTicket(Principal, Scheme.Name);
             return AuthenticateResult.Success(Ticket);
-            
-
+        }
+        public static string[] ValidateUser(HttpRequest request)
+        {
+            string Auth = request.Headers["Authorization"];
+            if (Auth == null || !Auth.StartsWith("Basic")) return null;
+            Auth = Auth.Remove(0, 6);
+            var encoding = Encoding.GetEncoding("iso-8859-1");
+            Auth = encoding.GetString(Convert.FromBase64String(Auth));
+            return Auth.Split(":", StringSplitOptions.None);
         }
     }
+
 }

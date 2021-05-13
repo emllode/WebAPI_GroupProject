@@ -34,6 +34,12 @@ namespace ASP_WebAPI_Template.Models
             public string Author { get; set; }
         }
 
-
+        public class SecondaryGeoMessagePost
+        {
+            public string Title { get; set; }
+            public string Body { get; set; }
+            public double Longitude { get; set; }
+            public double Latitude { get; set; }
+        }
     }
 }

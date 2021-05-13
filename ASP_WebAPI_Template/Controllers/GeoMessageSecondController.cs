@@ -1,4 +1,5 @@
-﻿using ASP_WebAPI_Template.Models;
+﻿using ASP_WebAPI_Template.Data;
+using ASP_WebAPI_Template.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -64,15 +65,16 @@ namespace ASP_WebAPI_Template.Controllers
         [Authorize]
         [HttpPost]
         [Consumes("application/json", new string[] { "application/xml" })]
-        public async Task<ActionResult<GeoMessage>> PostGeoMessage(SecondaryGeoMessageDto GeoMessage)
+        public async Task<ActionResult<GeoMessage>> PostGeoMessage(SecondaryGeoMessagePost GeoMessage)
         {
+            MyAuthenticationHandler handler;
             SecondaryGeoMessage geomessage = new SecondaryGeoMessage()
             {
                 Latitude = GeoMessage.Latitude,
                 Longitude = GeoMessage.Longitude,
-                Title = GeoMessage.Message.Title,
-                Author = GeoMessage.Message.Author,
-                Body = GeoMessage.Message.Body
+                Title = GeoMessage.Title,
+                Body = GeoMessage.Body,
+                Author = null
             };
             _context.GeoMessages.Add(geomessage);
             await _context.SaveChangesAsync();
