@@ -36,14 +36,14 @@
             <param name="maxLat"><para>Högsta värdet för latitud, Decimaltal</para></param>
             <returns>Retunerar samtliga messages</returns>
         </member>
-        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetGeoMessageTwo(System.Int32)">
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetGeoMessage(System.Int32)">
             <summary>
              Ger ett message utifrån ID som anges.
             </summary>
             <param name="id"> </param>
             <returns>retunerar message från ID</returns>
         </member>
-        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.PostGeoMessagev2(ASP_WebAPI_Template.Models.GeoMessageTwo.SecondaryGeoMessageDto)">
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.PostGeoMessage(ASP_WebAPI_Template.Models.GeoMessageTwo.SecondaryGeoMessagePost)">
             <summary>
             Postar message till v2 db
             </summary>

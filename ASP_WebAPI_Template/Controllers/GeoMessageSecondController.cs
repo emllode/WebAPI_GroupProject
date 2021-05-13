@@ -42,11 +42,19 @@ namespace ASP_WebAPI_Template.Controllers
 
             if (minLon == 0 && maxLon == 0 && minLat == 0 && maxLat == 0)
             {
-                var msgv1 = await _context.GeoMessages.ToListAsync();
-                var msgv2 = await _context.GeoMessagesTwo.ToListAsync();
-
-                var v1AndV2 = Messagesv1(msgv1).Concat(Messagesv2(msgv2));
-                return Ok(v1AndV2);
+                var geomessage = await _context.GeoMessages.Select(g =>
+                new SecondaryGeoMessageDto
+                {
+                    Message = new Message
+                    {
+                        Author = g.Author,
+                        Body = g.Body,
+                        Title = g.Title
+                    },
+                    Latitude = g.Latitude,
+                    Longitude = g.Longitude
+                }).ToListAsync();
+                return Ok(geomessage);
             }
 
             else
@@ -76,12 +84,12 @@ namespace ASP_WebAPI_Template.Controllers
             }
             ).FirstOrDefaultAsync();
 
-            if (geoMessagev2 == null)
+            if (geoMessage == null)
             {
                 return NotFound();
             }
 
-            return Ok(geoMessagev2);
+            return Ok(geoMessage);
         }
 
         // ("/v1/geo-comments")
@@ -100,7 +108,6 @@ namespace ASP_WebAPI_Template.Controllers
         [Consumes("application/json", new string[] { "application/xml" })]
         public async Task<ActionResult<GeoMessage>> PostGeoMessage(SecondaryGeoMessagePost GeoMessage)
         {
-            MyAuthenticationHandler handler;
             SecondaryGeoMessage geomessage = new SecondaryGeoMessage()
             {
                 Latitude = GeoMessage.Latitude,
@@ -109,11 +116,11 @@ namespace ASP_WebAPI_Template.Controllers
                 Body = GeoMessage.Body,
                 Author = null
             };
-            _context.GeoMessagesTwo.Add(geomess);
+            _context.GeoMessages.Add(geomessage);
 
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGeoMessage", new { Id = geomess.Id }, GeoMessageTwo);
+            return CreatedAtAction("GetGeoMessage", new { Id = geomessage.Id }, geomessage);
         }
 
 
