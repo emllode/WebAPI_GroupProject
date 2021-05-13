@@ -26,7 +26,20 @@
             </param>
             <returns>Message har blivit postat till db</returns>
         </member>
-        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.PostGeoMessagev2(ASP_WebAPI_Template.Models.GeoMessageTwo.SecondaryGeoMessage)">
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetMessagesTwo">
+            <summary>
+            Retunerar v1 + v2 meddelanden.
+            </summary>
+            <returns>Retunerar samtliga messages</returns>
+        </member>
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.GetGeoMessageTwo(System.Int32)">
+            <summary>
+             Ger ett message utifrån ID som anges.
+            </summary>
+            <param name="id"> </param>
+            <returns>retunerar message från ID</returns>
+        </member>
+        <member name="M:ASP_WebAPI_Template.Controllers.GeoMessageSecondController.PostGeoMessagev2(ASP_WebAPI_Template.Models.GeoMessageTwo.SecondaryGeoMessageDto)">
             <summary>
             Postar message till v2 db
             </summary>

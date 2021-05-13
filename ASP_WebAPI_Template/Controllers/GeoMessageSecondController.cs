@@ -51,25 +51,36 @@ namespace ASP_WebAPI_Template.Controllers
 
 
         }
+
+        /// <summary>
+        ///  Ger ett message utifrån ID som anges.
+        /// </summary>
+        /// <param name="id"> </param>
+        /// <returns>retunerar message från ID</returns>
         // ("/v1/geo-comments/{id}")
         [HttpGet("{id}")]
-        public async Task<ActionResult<GeoMessageDto>> GetGeoMessage(int id)
+        public async Task<ActionResult<GeoMessageTwo.SecondaryGeoMessageDto>> GetGeoMessageTwo(int id)
         {
-            var geoMessage = await _context.GeoMessages.Where(g => g.Id == id).Select(g =>
-            new GeoMessageDto
+            var geoMessagev2 = await _context.GeoMessagesTwo.Where(g => g.Id == id).Select(g =>
+            new GeoMessageTwo.SecondaryGeoMessageDto
             {
-                Message = g.Message,
+                Message = new GeoMessageTwo.Message()
+                {
+                    Title = g.Title,
+                    Body = g.Body,
+                    Author = g.Author,
+                },
                 Longitude = g.Longitude,
                 Latitude = g.Latitude
             }
             ).FirstOrDefaultAsync();
 
-            if (geoMessage == null)
+            if (geoMessagev2 == null)
             {
                 return NotFound();
             }
 
-            return Ok(geoMessage);
+            return Ok(geoMessagev2);
         }
 
         // ("/v1/geo-comments")
@@ -86,14 +97,14 @@ namespace ASP_WebAPI_Template.Controllers
         [Authorize]
         [HttpPost]
         [Consumes("application/json", new string[] { "application/xml" })]
-        public async Task<ActionResult<GeoMessageTwo.SecondaryGeoMessage>> PostGeoMessagev2(GeoMessageTwo.SecondaryGeoMessage GeoMessageTwo)
+        public async Task<ActionResult<GeoMessageTwo.SecondaryGeoMessage>> PostGeoMessagev2(GeoMessageTwo.SecondaryGeoMessageDto GeoMessageTwo)
         {
 
             GeoMessageTwo.SecondaryGeoMessage geomess = new GeoMessageTwo.SecondaryGeoMessage()
             {
-                Title = GeoMessageTwo.Title,
-                Body = GeoMessageTwo.Body,
-                Author = GeoMessageTwo.Author,
+                Title = GeoMessageTwo.Message.Title,
+                Body = GeoMessageTwo.Message.Body,
+                Author = GeoMessageTwo.Message.Author,
                 Longitude = GeoMessageTwo.Longitude,
                 Latitude = GeoMessageTwo.Latitude
             };
