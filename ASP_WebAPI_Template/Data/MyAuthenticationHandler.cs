@@ -16,6 +16,7 @@ namespace ASP_WebAPI_Template.Data
     public class MyAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private readonly GeoDbContext _context;
+        public static MyUser User { get; set; }
         public MyAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
@@ -31,7 +32,7 @@ namespace ASP_WebAPI_Template.Data
         {
             string[] UserAndPas = ValidateUser(Request);
             if (UserAndPas == null) return AuthenticateResult.Fail("No authentication");
-            MyUser User = _context.MyUsers.Where(u => u.FirstName == UserAndPas[0] && u.LastName == UserAndPas[1]).FirstOrDefault();
+            User = _context.MyUsers.Where(u => u.FirstName == UserAndPas[0] && u.LastName == UserAndPas[1]).FirstOrDefault();
 
             if (User == null) return AuthenticateResult.Fail("Invalid user");
 

@@ -116,7 +116,7 @@ namespace ASP_WebAPI_Template.Controllers
                 Longitude = GeoMessage.Longitude,
                 Title = GeoMessage.Title,
                 Body = GeoMessage.Body,
-                Author = null
+                Author = MyAuthenticationHandler.User.FirstName + " " +  MyAuthenticationHandler.User.LastName
             };
             _context.GeoMessages.Add(geomessage);
 
